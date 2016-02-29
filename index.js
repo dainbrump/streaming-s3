@@ -152,7 +152,8 @@ StreamingS3.prototype.begin = function() {
     if (typeof chunk === 'string') chunk = new Buffer(chunk, 'utf-8');
     self.totalBytes += chunk.length;
     self.buffer = Buffer.concat([self.buffer, chunk]);
-    self.emit('data', chunk.length);
+    //self.emit('data', chunk.length);
+    self.emit('data', chunk);
     if (self.buffer.length >= self.options.maxPartSize) {
       self.flushChunk();
     }
