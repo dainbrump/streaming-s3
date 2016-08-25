@@ -71,7 +71,8 @@ function StreamingS3(stream, s3AccessKey, s3SecretKey, s3Params, options, cb) {
      retries: 5,               // Number of times to retry a part.
      sdkRetries: 6,            // Passed onto the underlying aws-sdk.
      maxPartSize: 5*1024*1024, // In bytes, will also consume this much buffering memory.
-     pipeto: null              // Optional writeable stream to pipe to
+     pipeto: null,             // Optional writeable stream to pipe to
+     pipeas: null              // String identifying what format to pipe as. Typically (binary or 'UTF-8')
   };
 
   options = extendObj(defaultOptions, options);
@@ -116,6 +117,7 @@ function StreamingS3(stream, s3AccessKey, s3SecretKey, s3Params, options, cb) {
   this.s3Client = this.getNewS3Client();
   this.uploadId = null;
   this.pipeto = options.pipeto;
+  this.pipeas = options.pipeas;
   this.cb = cb;
 
   // Timers
